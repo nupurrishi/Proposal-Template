@@ -1,0 +1,195 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Our Garden 🌹</title>
+    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@1,600&family=Quicksand:wght@300;500&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --forest: #0a1a14;
+            --petal: #ff758f;
+            --gold: #d4af37;
+            --ivory: #fff9f5;
+        }
+
+        body, html {
+            margin: 0; padding: 0;
+            background-color: var(--forest);
+            color: var(--ivory);
+            font-family: 'Quicksand', sans-serif;
+            overflow-x: hidden;
+        }
+
+        /* --- FLOATING ELEMENTS --- */
+        .floating-item {
+            position: fixed;
+            pointer-events: none;
+            z-index: 1;
+            opacity: 0.6;
+            filter: drop-shadow(0 5px 15px rgba(0,0,0,0.3));
+        }
+
+        .floating-polaroid {
+            background: var(--ivory);
+            padding: 8px 8px 25px 8px;
+            border-radius: 2px;
+            box-shadow: 0 4px 10px rgba(0,0,0,0.3);
+        }
+
+        .floating-polaroid img {
+            width: 80px;
+            height: 80px;
+            object-fit: cover;
+            display: block;
+        }
+
+        /* --- CONTENT --- */
+        .section {
+            height: 100vh;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            text-align: center;
+            position: relative;
+            z-index: 10;
+        }
+
+        h1 {
+            font-family: 'Playfair Display', serif;
+            font-size: clamp(2rem, 8vw, 4rem);
+            font-style: italic;
+            color: var(--gold);
+            text-shadow: 0 0 20px rgba(0,0,0,0.5);
+        }
+
+        .ask-container {
+            background: rgba(255, 255, 255, 0.05);
+            backdrop-filter: blur(15px);
+            -webkit-backdrop-filter: blur(15px);
+            padding: 60px 40px;
+            border-radius: 50px;
+            border: 1px solid rgba(212, 175, 55, 0.3);
+            max-width: 450px;
+            width: 90%;
+        }
+
+        .btn-group {
+            margin-top: 40px;
+            display: flex;
+            justify-content: center;
+            gap: 20px;
+        }
+
+        .btn {
+            padding: 15px 40px;
+            font-size: 1.1rem;
+            border-radius: 50px;
+            cursor: pointer;
+            transition: 0.3s;
+            border: none;
+            font-weight: bold;
+        }
+
+        #yesBtn {
+            background: var(--petal);
+            color: white;
+            box-shadow: 0 5px 15px rgba(255, 117, 143, 0.4);
+        }
+
+        #noBtn {
+            background: transparent;
+            color: #666;
+            border: 1px solid #444;
+        }
+
+        #success {
+            display: none;
+            position: fixed;
+            inset: 0;
+            background: var(--forest);
+            z-index: 100;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+        }
+    </style>
+</head>
+<body>
+
+    <section class="section">
+        <h1>Hey Handsome...</h1>
+        <p style="letter-spacing: 2px; opacity: 0.7;">Keep scrolling, I have a question.</p>
+    </section>
+
+    <section class="section">
+        <div class="ask-container">
+            <h2 style="font-family: 'Playfair Display'; font-style: italic; font-size: 2.2rem; margin-bottom: 10px;">Our story is my favorite.</h2>
+            <p style="font-weight: 300; margin-bottom: 30px;">Let's add another chapter?</p>
+            <h3 style="color: var(--gold); letter-spacing: 2px;">WILL YOU BE MY VALENTINE?</h3>
+            
+            <div class="btn-group">
+                <button class="btn" id="yesBtn" onclick="celebrate()">YES!</button>
+                <button class="btn" id="noBtn" onmouseover="dodge(this)">No</button>
+            </div>
+        </div>
+    </section>
+
+    <div id="success">
+        <h1 style="font-size: 4rem;">🌹❤️✨</h1>
+        <h2 style="font-family: 'Playfair Display'; font-style: italic; font-size: 3rem; color: var(--gold);">I'm yours.</h2>
+        <p>I'll see you on the 14th!</p>
+    </div>
+
+    <script src="https://cdn.jsdelivr.net/npm/canvas-confetti@1.5.1/dist/confetti.browser.min.js"></script>
+    <script>
+        // LIST YOUR IMAGE URLS HERE!
+        const myPhotos = [
+            '1.jpg',
+            '2.jpg',
+            '3.jpg'
+        ];
+
+        function createFloatingItem() {
+            const isPhoto = Math.random() > 0.7; // 30% chance for a photo, 70% for a flower
+            const container = document.createElement('div');
+            container.className = 'floating-item';
+            
+            if (isPhoto) {
+                container.classList.add('floating-polaroid');
+                const img = document.createElement('img');
+                img.src = myPhotos[Math.floor(Math.random() * myPhotos.length)];
+                container.appendChild(img);
+                container.style.transform = `rotate(${Math.random() * 20 - 10}deg)`;
+            } else {
+                container.innerText = ['🌹', '🌸', '✨', '🌷', '💐' ,'🌺' ,'🌼' ,'🌻'][Math.floor(Math.random() * 8)];
+                container.style.fontSize = (Math.random() * 20 + 20) + 'px';
+            }
+
+            container.style.left = Math.random() * 90 + 'vw';
+            container.style.top = '110vh';
+            document.body.appendChild(container);
+
+            const duration = Math.random() * 5000 + 5000;
+            container.animate([
+                { top: '110vh' },
+                { top: '-20vh' }
+            ], { duration: duration, easing: 'linear' }).onfinish = () => container.remove();
+        }
+
+        setInterval(createFloatingItem, 600);
+
+        function dodge(btn) {
+            btn.style.position = 'fixed';
+            btn.style.left = Math.random() * (window.innerWidth - 100) + 'px';
+            btn.style.top = Math.random() * (window.innerHeight - 50) + 'px';
+        }
+
+        function celebrate() {
+            confetti({ particleCount: 200, spread: 70, origin: { y: 0.6 }, colors: ['#ff758f', '#d4af37'] });
+            setTimeout(() => { document.getElementById('success').style.display = 'flex'; }, 500);
+        }
+    </script>
+</body>
+</html>

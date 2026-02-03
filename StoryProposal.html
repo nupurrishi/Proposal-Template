@@ -1,0 +1,226 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Our Journey ❤️</title>
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@900&family=Playfair+Display:ital,wght@0,700;1,700&family=Handlee&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --fire-red: #e63946;
+            --deep-crimson: #9b2226;
+            --off-white: #f8f9fa;
+        }
+
+        body, html {
+            margin: 0; padding: 0;
+            background-color: var(--off-white);
+            font-family: 'Handlee', cursive;
+            scroll-behavior: smooth;
+        }
+
+        /* --- HERO SECTION --- */
+        .hero {
+            height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            text-align: center;
+            background: linear-gradient(rgba(0,0,0,0.5), rgba(0,0,0,0.5)), 
+                        url('https://images.unsplash.com/photo-1518199266791-5375a83190b7?auto=format&fit=crop&q=80&w=2070'); /* Replace with their best photo */
+            background-size: cover;
+            background-position: center;
+            background-attachment: fixed;
+            position: relative;
+            overflow: hidden;
+        }
+
+        /* Film Grain Overlay */
+        .hero::before {
+            content: ""; position: absolute; top: 0; left: 0; width: 100%; height: 100%;
+            background: url(https://upload.wikimedia.org/wikipedia/commons/7/76/1k_Grain_Texture.png);
+            opacity: 0.15; pointer-events: none;
+        }
+
+        .hero h1 {
+            color: white;
+            font-family: 'Playfair Display', serif;
+            font-size: 4rem;
+            font-style: italic;
+            text-shadow: 3px 3px 20px rgba(0,0,0,0.5);
+            animation: fadeInUp 2s ease-out;
+        }
+
+        /* --- THE TIMELINE --- */
+        .timeline-section { padding: 100px 20px; background: white; }
+        .timeline-container { position: relative; max-width: 800px; margin: 0 auto; }
+        
+        .timeline-item {
+            padding: 20px;
+            border-left: 4px solid var(--fire-red);
+            margin-bottom: 50px;
+            position: relative;
+            background: var(--off-white);
+            border-radius: 0 15px 15px 0;
+            box-shadow: 5px 5px 15px rgba(0,0,0,0.05);
+            transform: translateX(-20px);
+            opacity: 0;
+            transition: 0.8s all ease;
+        }
+
+        .timeline-item.visible { transform: translateX(0); opacity: 1; }
+
+        .timeline-date {
+            font-family: 'Montserrat', sans-serif;
+            color: var(--fire-red);
+            font-size: 1.5rem;
+            font-weight: 900;
+        }
+
+        /* --- THE GALLERY --- */
+        .gallery-section { padding: 80px 20px; background: var(--soft-pink); }
+        .polaroid-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 30px;
+            max-width: 1000px;
+            margin: 0 auto;
+        }
+
+        .polaroid {
+            background: white;
+            padding: 15px 15px 40px 15px;
+            box-shadow: 0 10px 20px rgba(0,0,0,0.1);
+            transform: rotate(var(--r));
+            transition: 0.3s;
+        }
+        .polaroid:hover { transform: rotate(0deg) scale(1.1); z-index: 5; }
+        .polaroid img { width: 100%; height: 200px; object-fit: cover; }
+
+        /* --- THE BIG MOMENT --- */
+        .proposal-section {
+            height: 100vh;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            background: white;
+            text-align: center;
+        }
+
+        .proposal-section h2 {
+            font-family: 'Montserrat', sans-serif;
+            font-size: 3.5rem;
+            color: black;
+            margin-bottom: 40px;
+            padding: 0 20px;
+        }
+
+        .btn-group { display: flex; gap: 20px; flex-wrap: wrap; justify-content: center; }
+
+        .btn {
+            padding: 20px 50px;
+            font-size: 1.8rem;
+            border-radius: 50px;
+            border: none;
+            cursor: pointer;
+            font-family: 'Montserrat', sans-serif;
+            font-weight: 900;
+            transition: 0.3s;
+        }
+
+        .btn-red { background: var(--fire-red); color: white; }
+        .btn-pink { background: #ff85a1; color: white; }
+        .btn:hover { transform: scale(1.1); box-shadow: 0 10px 25px rgba(230, 57, 70, 0.4); }
+
+        @keyframes fadeInUp {
+            from { opacity: 0; transform: translateY(30px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+    </style>
+</head>
+<body>
+
+    <div class="hero">
+        <h1>Every second led to this...</h1>
+    </div>
+
+    <div class="timeline-section">
+        <div class="timeline-container">
+            <div class="timeline-item">
+                <div class="timeline-date">JUNE 14, 2022</div>
+                <h3>The Day We Met</h3>
+                <p>I didn't know it then, but my life was about to change forever.</p>
+            </div>
+            <div class="timeline-item">
+                <div class="timeline-date">OCTOBER 3, 2022</div>
+                <h3>First "I Love You"</h3>
+                <p>In that messy pizza place. It was perfect.</p>
+            </div>
+            <div class="timeline-item">
+                <div class="timeline-date">JANUARY 20, 2024</div>
+                <h3>We Got Barnaby! 🐶</h3>
+                <p>The moment our little family grew by four paws.</p>
+            </div>
+        </div>
+    </div>
+
+    <div class="gallery-section">
+        <h2 style="text-align: center; font-size: 2.5rem; color: var(--deep-crimson);">Our Messy, Perfect Life</h2>
+        <div class="polaroid-grid">
+            <div class="polaroid" style="--r: -3deg;"><img src="https://via.placeholder.com/200x200?text=Silly+Face"></div>
+            <div class="polaroid" style="--r: 2deg;"><img src="https://via.placeholder.com/200x200?text=Road+Trip"></div>
+            <div class="polaroid" style="--r: -1deg;"><img src="https://via.placeholder.com/200x200?text=Lazy+Sunday"></div>
+            <div class="polaroid" style="--r: 4deg;"><img src="https://via.placeholder.com/200x200?text=First+Date"></div>
+        </div>
+    </div>
+
+    <div class="proposal-section">
+        <h2>Will you make me the happiest person alive?</h2>
+        <div class="btn-group">
+            <button class="btn btn-red" onclick="celebrate()">YES!</button>
+            <button class="btn btn-pink" onclick="celebrate()">YES! (In Pink)</button>
+        </div>
+    </div>
+
+    <script src="https://cdn.jsdelivr.net/npm/canvas-confetti@1.5.1/dist/confetti.browser.min.js"></script>
+    <script>
+        // Scroll Animation Logic
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.classList.add('visible');
+                }
+            });
+        }, { threshold: 0.1 });
+
+        document.querySelectorAll('.timeline-item').forEach(item => observer.observe(item));
+
+        function celebrate() {
+            const end = Date.now() + (5 * 1000);
+            const colors = ['#e63946', '#ff85a1', '#ffffff'];
+
+            (function frame() {
+                confetti({
+                    particleCount: 3,
+                    angle: 60,
+                    spread: 55,
+                    origin: { x: 0 },
+                    colors: colors
+                });
+                confetti({
+                    particleCount: 3,
+                    angle: 120,
+                    spread: 55,
+                    origin: { x: 1 },
+                    colors: colors
+                });
+
+                if (Date.now() < end) {
+                    requestAnimationFrame(frame);
+                }
+            }());
+        }
+    </script>
+</body>
+</html>
