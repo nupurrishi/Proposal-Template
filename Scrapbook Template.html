@@ -1,0 +1,208 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>A Love Story! ❤️</title>
+    <link href="https://fonts.googleapis.com/css2?family=Caveat:wght@700&family=Montserrat:wght@800&family=Handlee&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --bright-red: #ff0000;
+            --deep-red: #b30000;
+            --white: #ffffff;
+            --soft-pink: #fff0f0;
+        }
+
+        body {
+            background-color: var(--bright-red);
+            background-image: url("https://www.transparenttextures.com/patterns/heart-canvas.png"); /* Subtle heart pattern */
+            font-family: 'Handlee', cursive;
+            margin: 0;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
+            overflow-x: hidden;
+        }
+
+        /* --- ENVELOPE (Vibrant Red) --- */
+        #envelope-wrapper { cursor: pointer; transform: scale(1.2); transition: 0.3s; }
+        #envelope-wrapper:hover { transform: scale(1.3); }
+        
+        .envelope {
+            position: relative; width: 300px; height: 200px;
+            background: var(--deep-red); border-radius: 0 0 10px 10px;
+            box-shadow: 0 20px 40px rgba(0,0,0,0.4);
+        }
+        .envelope:before {
+            content: ""; position: absolute; top: 0; left: 0;
+            border-left: 150px solid transparent; border-right: 150px solid transparent;
+            border-top: 100px solid #800000; transition: transform 0.5s;
+            transform-origin: top; z-index: 2;
+        }
+        .envelope.open:before { transform: rotateX(180deg); }
+        .letter-preview {
+            position: absolute; top: 10px; left: 10px; width: 280px; height: 180px;
+            background: var(--white); text-align: center; padding-top: 40px; z-index: 1;
+        }
+
+        /* --- MAIN CONTENT --- */
+        #main-content { display: none; width: 95%; max-width: 900px; text-align: center; padding: 20px; }
+        
+        .scrapbook-page {
+            background: var(--white);
+            padding: 50px 30px;
+            border-radius: 30px;
+            border: 8px solid var(--deep-red);
+            box-shadow: 20px 20px 0px rgba(0,0,0,0.1);
+            position: relative;
+        }
+
+        h1 { 
+            font-family: 'Montserrat', sans-serif; 
+            color: var(--bright-red); 
+            font-size: 3rem; 
+            margin: 0;
+            text-transform: uppercase;
+            letter-spacing: -2px;
+        }
+
+        .lively-sub { font-size: 1.5rem; color: #555; margin-bottom: 30px; }
+
+        /* Polaroid Photo Cards */
+        .cards-container {
+            display: flex; gap: 20px; justify-content: center; flex-wrap: wrap; margin: 40px 0;
+        }
+
+        .card { width: 240px; height: 300px; perspective: 1000px; cursor: pointer; }
+        .card-inner {
+            position: relative; width: 100%; height: 100%;
+            transition: transform 0.6s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+            transform-style: preserve-3d;
+        }
+        .card:hover { transform: scale(1.05) rotate(2deg); }
+        .card.is-flipped .card-inner { transform: rotateY(180deg); }
+
+        .card-front, .card-back {
+            position: absolute; width: 100%; height: 100%;
+            backface-visibility: hidden; border: 12px solid white;
+            border-bottom: 60px solid white;
+            box-shadow: 5px 5px 15px rgba(0,0,0,0.2);
+            box-sizing: border-box;
+        }
+
+        .card-front img { width: 100%; height: 100%; object-fit: cover; }
+        
+        .card-back {
+            background: var(--soft-pink); transform: rotateY(180deg);
+            display: flex; align-items: center; justify-content: center;
+            padding: 20px; font-size: 1.3rem; color: var(--deep-red);
+            font-weight: bold; text-align: center;
+        }
+
+        /* Proposal Section */
+        .proposal-visual { width: 160px; margin: 20px auto; animation: heartbeat 1.2s infinite; }
+        @keyframes heartbeat {
+            0% { transform: scale(1); }
+            50% { transform: scale(1.1); }
+            100% { transform: scale(1); }
+        }
+
+        h2 { font-family: 'Montserrat', sans-serif; font-size: 2.5rem; color: #000; }
+
+        .btn-group { position: relative; height: 120px; margin-top: 20px; }
+        #absolutely {
+            background: var(--bright-red); color: white; border: none;
+            padding: 20px 60px; font-size: 2rem; border-radius: 100px;
+            cursor: pointer; font-family: 'Montserrat', sans-serif;
+            box-shadow: 0 10px 0px var(--deep-red);
+            transition: 0.2s;
+        }
+        #absolutely:active { transform: translateY(5px); box-shadow: 0 5px 0px var(--deep-red); }
+
+        #noBtn { position: absolute; padding: 10px 20px; background: #eee; color: #888; border: none; border-radius: 10px; cursor: pointer; font-weight: bold; }
+    </style>
+</head>
+<body>
+
+    <div id="envelope-wrapper" onclick="openEnvelope()">
+        <div class="envelope" id="env">
+            <div class="letter-preview"><h2 style="font-family: 'Caveat'; color: var(--bright-red);">Open Me! 💌</h2></div>
+        </div>
+    </div>
+
+    <div id="main-content">
+        <div class="scrapbook-page">
+            <h1>YOU + ME = 🔥</h1>
+            <p class="lively-sub">Life is a boring movie, but you're the best part!</p>
+
+            <div class="cards-container">
+                <div class="card" onclick="this.classList.toggle('is-flipped')">
+                    <div class="card-inner">
+                        <div class="card-front"><img src="1.jpg" alt="Us"></div>
+                        <div class="card-back">Nobody makes me laugh as hard as you do! 🚀</div>
+                    </div>
+                </div>
+                <div class="card" onclick="this.classList.toggle('is-flipped')">
+                    <div class="card-inner">
+                        <div class="card-front"><img src="2.jpg" alt="Us"></div>
+                        <div class="card-back">You're my partner in crime and my favorite person to annoy! 😜</div>
+                    </div>
+                </div>
+                <div class="card" onclick="this.classList.toggle('is-flipped')">
+                    <div class="card-inner">
+                        <div class="card-front"><img src="3.jpg" alt="Us"></div>
+                        <div class="card-back">I'm 100% obsessed with you. Every single day! ❤️‍🔥</div>
+                    </div>
+                </div>
+            </div>
+
+            <img src="https://media4.giphy.com/media/v1.Y2lkPTc5MGI3NjExNndkdGIweTZqbThsYTE4emNuY3l2bWk0dHV0cjUwa2hnbml1N2RxaiZlcD12MV9pbnRlcm5hbF9naWZfYnlfaWQmY3Q9Zw/XGn5TfwxT7K4QrOlS2/giphy.gif" class="proposal-visual">
+
+            <h2>READY TO DO THIS FOREVER?</h2>
+            
+            <div class="btn-group">
+                <button id="absolutely" onclick="celebrate()">Absolutely! ✨</button>
+                <button id="noBtn" onmouseover="moveButton()">No thanks</button>
+            </div>
+        </div>
+    </div>
+
+    <script src="https://cdn.jsdelivr.net/npm/canvas-confetti@1.5.1/dist/confetti.browser.min.js"></script>
+    <script>
+        function openEnvelope() {
+            document.getElementById('env').classList.add('open');
+            setTimeout(() => {
+                document.getElementById('envelope-wrapper').style.display = 'none';
+                document.getElementById('main-content').style.display = 'block';
+            }, 600);
+        }
+
+        function moveButton() {
+            const btn = document.getElementById('noBtn');
+            const x = Math.random() * (window.innerWidth - btn.offsetWidth);
+            const y = Math.random() * (window.innerHeight - btn.offsetHeight);
+            btn.style.left = x + 'px';
+            btn.style.top = y + 'px';
+        }
+
+        function celebrate() {
+            var duration = 5 * 1000;
+            var animationEnd = Date.now() + duration;
+            var defaults = { startVelocity: 30, spread: 360, ticks: 60, zIndex: 0 };
+
+            function randomInRange(min, max) { return Math.random() * (max - min) + min; }
+
+            var interval = setInterval(function() {
+                var timeLeft = animationEnd - Date.now();
+                if (timeLeft <= 0) { return clearInterval(interval); }
+                var particleCount = 50 * (timeLeft / duration);
+                confetti(Object.assign({}, defaults, { particleCount, origin: { x: randomInRange(0.1, 0.3), y: Math.random() - 0.2 } }));
+                confetti(Object.assign({}, defaults, { particleCount, origin: { x: randomInRange(0.7, 0.9), y: Math.random() - 0.2 } }));
+            }, 250);
+            
+            alert("LET'S GOOOOO! ❤️💍🔥");
+        }
+    </script>
+</body>
+</html>
