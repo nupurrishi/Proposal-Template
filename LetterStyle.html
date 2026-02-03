@@ -1,0 +1,232 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Valentine's Letter</title>
+    <link href="https://fonts.googleapis.com/css2?family=Great+Vibes&family=Pinyon+Script&family=Satisfy&display=swap" rel="stylesheet">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Georgia', serif;
+            background: linear-gradient(135deg, #f5e6d3 0%, #faf5ee 50%, #f0e5d8 100%);
+            min-height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            padding: 20px;
+        }
+
+        .container {
+            position: relative;
+            width: 600px;
+            max-width: 100%;
+        }
+
+        .envelope-details {
+            text-align: center;
+            margin-bottom: 30px;
+            z-index: 1;
+        }
+
+        .to-from {
+            font-family: 'Great Vibes', cursive;
+            font-size: 32px;
+            color: #8b4513;
+            margin: 5px 0;
+            text-shadow: 1px 1px 2px rgba(255, 255, 255, 0.5);
+        }
+
+        .label {
+            font-family: 'Satisfy', cursive;
+            font-size: 18px;
+            color: #a0522d;
+        }
+
+        .envelope {
+            position: relative;
+            width: 100%;
+            height: 400px;
+            background: linear-gradient(135deg, #d4a574 0%, #c9996b 50%, #b8895f 100%);
+            border-radius: 8px;
+            box-shadow: 0 20px 60px rgba(139, 69, 19, 0.3);
+            cursor: pointer;
+            transition: transform 0.3s ease;
+        }
+
+        .envelope:hover {
+            transform: translateY(-5px);
+        }
+
+        .envelope-flap {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 200px;
+            background: linear-gradient(180deg, #c9996b 0%, #b8895f 100%);
+            clip-path: polygon(0 0, 50% 100%, 100% 0);
+            transform-origin: top center;
+            transition: transform 0.8s ease;
+            z-index: 5;
+            border-radius: 8px 8px 0 0;
+        }
+
+        .envelope.open .envelope-flap {
+            transform: rotateX(180deg);
+        }
+
+        .seal {
+            position: absolute;
+            top: 180px;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 80px;
+            height: 80px;
+            background: #fff;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 40px;
+            box-shadow: 0 4px 15px rgba(139, 69, 19, 0.3);
+            z-index: 6;
+            transition: all 0.8s ease;
+        }
+
+        .envelope.open .seal {
+            top: -40px;
+            transform: translateX(-50%) scale(0.8);
+        }
+
+        .letter {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            width: 85%;
+            height: 85%;
+            background: linear-gradient(135deg, #fffef9 0%, #faf8f0 100%);
+            border-radius: 4px;
+            box-shadow: 0 10px 40px rgba(0, 0, 0, 0.2);
+            padding: 40px;
+            opacity: 0;
+            transition: all 0.8s ease;
+            z-index: 3;
+            overflow-y: auto;
+            border: 1px solid #e8d7c3;
+        }
+
+        .envelope.open .letter {
+            opacity: 1;
+            top: 45%;
+            transform: translate(-50%, -50%) scale(1.1);
+        }
+
+        .letter-content {
+            font-family: 'Pinyon Script', cursive;
+            font-size: 24px;
+            line-height: 1.8;
+            color: #4a4a4a;
+            text-align: left;
+        }
+
+        .letter-content p {
+            margin-bottom: 20px;
+        }
+
+        .hearts {
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            pointer-events: none;
+            overflow: hidden;
+        }
+
+        .heart {
+            position: absolute;
+            color: #bd0404;
+            font-size: 20px;
+            animation: float 4s ease-in-out infinite;
+            opacity: 1;
+        }
+
+        @keyframes float {
+            0%, 100% { transform: translateY(0) rotate(0deg); }
+            50% { transform: translateY(-20px) rotate(10deg); }
+        }
+
+        .instruction {
+            text-align: center;
+            margin-top: 20px;
+            font-family: 'Satisfy', cursive;
+            color: #bd0404;
+            font-size: 18px;
+            opacity: 1;
+            transition: opacity 0.5s ease;
+        }
+
+        .envelope.open + .instruction {
+            opacity: 0;
+        }
+    </style>
+</head>
+<body>
+    <div class="hearts">
+        <div class="heart" style="left: 10%; top: 15%; animation-delay: 0s;">♥</div>
+        <div class="heart" style="left: 85%; top: 25%; animation-delay: 1s;">♥</div>
+        <div class="heart" style="left: 20%; top: 70%; animation-delay: 2s;">♥</div>
+        <div class="heart" style="left: 75%; top: 65%; animation-delay: 1.5s;">♥</div>
+        <div class="heart" style="left: 50%; top: 10%; animation-delay: 0.5s;">♥</div>
+    </div>
+
+    <div class="container">
+        <div class="envelope-details">
+            <div class="label">To:</div>
+            <div class="to-from" id="toName"></div>
+            <div class="label" style="margin-top: 15px;">From:</div>
+            <div class="to-from" id="fromName"></div>
+        </div>
+
+        <div class="envelope" id="envelope" onclick="toggleEnvelope()">
+            <div class="seal">🌹</div>
+            <div class="envelope-flap"></div>
+            
+            <div class="letter">
+                <div class="letter-content" id="letterContent">
+                    <p style="text-align: right; margin-top: 30px;"></p>
+                </div>
+            </div>
+        </div>
+        <div class="instruction">Click the envelope to open ♥</div>
+    </div>
+
+    <script>
+        function toggleEnvelope() {
+            const envelope = document.getElementById('envelope');
+            envelope.classList.toggle('open');
+        }
+
+        // Customize your letter here:
+        // Change the names
+        document.getElementById('toName').textContent = 'Nupur';
+        document.getElementById('fromName').textContent = 'Tarun';
+
+        // Change the letter content
+        document.getElementById('letterContent').innerHTML = `
+            <p>Nupur,</p>
+            <p>Roses are red,
+            <br>Pizza sauce is too,
+            <br>I ordered a large,
+            <brAnd I’ll share with you.</p>
+            <p>With all my love,</p>
+            <p style="text-align: right; margin-top: 30px;">Tarun</p>
+        `;
+    </script>
+</body>
+</html>
